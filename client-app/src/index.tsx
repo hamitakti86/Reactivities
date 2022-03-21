@@ -5,6 +5,7 @@ import App from './app/layout/App';
 import './app/layout/styles.css';
 import { store, StoreContext } from './app/stores/store';
 import reportWebVitals from './reportWebVitals';
+import 'react-calendar/dist/Calendar.css';
 
 ReactDOM.render(
   <StoreContext.Provider value={store}>
