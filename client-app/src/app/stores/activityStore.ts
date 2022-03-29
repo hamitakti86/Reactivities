@@ -21,10 +21,10 @@ export default class ActivityStore {
             a.date!.getTime() - b.date!.getTime());
     }
 
-    get grouppedActivities() {
+    get groupedActivities() {
         return Object.entries(
             this.activitiesByDate.reduce((activities, activity) => {
-                const date = format(activity.date!, 'dd MMM yyyy')
+                const date = format(activity.date!, 'dd MMM yyyy');
                 activities[date] = activities[date] ? [...activities[date], activity] : [activity];
                 return activities;
             }, {} as { [key: string]: Activity[] })
@@ -50,15 +50,14 @@ export default class ActivityStore {
         if (activity) {
             this.selectedActivity = activity;
             return activity;
-        }
-        else {
+        } else {
             this.loadingInitial = true;
             try {
                 activity = await agent.Activities.details(id);
                 this.setActivity(activity);
                 runInAction(() => {
                     this.selectedActivity = activity;
-                });
+                })
                 this.setLoadingInitial(false);
                 return activity;
             } catch (error) {
@@ -77,7 +76,6 @@ export default class ActivityStore {
             activity.isHost = activity.hostUsername === user.username;
             activity.host = activity.attendees?.find(x => x.username === activity.hostUsername);
         }
-
         activity.date = new Date(activity.date!);
         this.activityRegistry.set(activity.id, activity);
     }
@@ -168,12 +166,27 @@ export default class ActivityStore {
             await agent.Activities.attend(this.selectedActivity!.id);
             runInAction(() => {
                 this.selectedActivity!.isCancelled = !this.selectedActivity?.isCancelled;
-                this.activityRegistry.set(this.selectedActivity!.id, this.selectedActivity!)
+                this.activityRegistry.set(this.selectedActivity!.id, this.selectedActivity!);
             })
         } catch (error) {
             console.log(error);
         } finally {
-            runInAction(() => this.loading = false)
+            runInAction(() => this.loading = false);
         }
     }
-} 
+
+    // updateAttendeeFollowing = (username: string) => {
+    //     this.activityRegistry.forEach(activity => {
+    //         activity.attendees.forEach(attendee => {
+    //             if (attendee.username === username) {
+    //                 attendee.following ? attendee.followersCount-- : attendee.followersCount++;
+    //                 attendee.following = !attendee.following;
+    //             }
+    //         })
+    //     })
+    // }
+
+    clearSelectedActivity = () => {
+        this.selectedActivity = undefined;
+    }
+}
