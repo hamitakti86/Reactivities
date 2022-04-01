@@ -1,11 +1,11 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { Button, Header, Segment } from "semantic-ui-react";
 import axios from 'axios';
 import ValidationErrors from './ValidationErrors';
 
 export default function TestErrors() {
-    const baseUrl = 'http://localhost:5000/api/'
-    const [errors,setErrors] = useState(null);
+    const baseUrl = process.env.REACT_APP_API_URL;
+    const [errors, setErrors] = useState(null);
 
     function handleNotFound() {
         axios.get(baseUrl + 'buggy/not-found').catch(err => console.log(err.response));
