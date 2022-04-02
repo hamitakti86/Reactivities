@@ -43,12 +43,12 @@ namespace API
             app.UseXfo(opt => opt.Deny());
             app.UseCspReportOnly(opt => opt
                 .BlockAllMixedContent()
-                .StyleSources(s => s.Self().CustomSources("https://fonts.googleapis.com","https://cdn.jsdelivr.net/"))
+                .StyleSources(s => s.Self().CustomSources("https://fonts.googleapis.com","https://cdn.jsdelivr.net"))
                 .FontSources(s => s.Self().CustomSources("https://fonts.gstatic.com", "data:"))
                 .FormActions(s => s.Self())
                 .FrameAncestors(s => s.Self())
                 .ImageSources(s => s.Self().CustomSources("https://res.cloudinary.com"))
-                .ScriptSources(s => s.Self().CustomSources("sha256-HIgflxNtM43xg36bBIUoPTUuo+CXZ319LsTVRtsZ/VU=","https://cdn.jsdelivr.net/"))
+                .ScriptSources(s => s.Self().CustomSources("sha256-HIgflxNtM43xg36bBIUoPTUuo+CXZ319LsTVRtsZ/VU=","https://cdn.jsdelivr.net"))
             );
 
             if (env.IsDevelopment())
@@ -61,7 +61,6 @@ namespace API
                 app.Use(async (context, next) => 
                 {
                     context.Response.Headers.Add("Strict-Transport-Security", "max-age=31536000");
-                    context.Response.Headers.Add("Content-Security-Policy", "default-src 'self';");
                     await next.Invoke();
                 });
             }
