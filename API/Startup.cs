@@ -61,8 +61,6 @@ namespace API
                 app.Use(async (context, next) => 
                 {
                     context.Response.Headers.Add("Strict-Transport-Security", "max-age=31536000");
-                    context.Response.Headers.Add("Content-Security-Policy"
-                    , "default-src 'self' cdn.jsdelivr.net res.cloudinary.com fonts.gstatic.com fonts.googleapis.com sha256-HIgflxNtM43xg36bBIUoPTUuo+CXZ319LsTVRtsZ/VU=;");
                     await next.Invoke();
                 });
             }
