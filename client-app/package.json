@@ -39,7 +39,7 @@
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
-        "postbuild": "mv build ../API/wwwroot",
+        "postbuild": "rimraf ../API/wwwroot && mv build ../API/wwwroot",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "postinstall": "semantic-ui-css-patch"
@@ -63,10 +63,12 @@
         ]
     },
     "devDependencies": {
+        "@types/facebook-js-sdk": "^3.3.5",
         "@types/react-calendar": "^3.5.0",
         "@types/react-datepicker": "^4.3.4",
         "@types/react-infinite-scroller": "^1.2.3",
         "@types/uuid": "^8.3.4",
-        "@types/yup": "^0.29.13"
+        "@types/yup": "^0.29.13",
+        "rimraf": "^3.0.2"
     }
 }
